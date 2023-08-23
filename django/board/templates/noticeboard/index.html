@@ -1,0 +1,66 @@
+<!DOCTYPE html>
+            <html lang="ko">
+            <head>
+                <meta charset="UTF-8">
+                <title>글 목록</title>
+                <style>
+                    .cls1 {
+                        text-decoration: none;
+                    }
+                    .cls2 {
+                        text-align: center;
+                        font-size: 30px;
+                        display: block;
+                    }
+                </style>
+            </head>
+            <body>
+                {% if user.is_authenticated  %} <!-- 현재 사용자가 정상적으로 인증되었는지-->
+                <a class="rm_underline" href="{% url 'common:logout' %}">
+                <span>{{ user.username }} (logout)</span>
+                </a>
+                {% else %} <!-- 정상적으로 인증되지 않은 경우-->
+                <a class="rm_underline" href="{% url 'common:login' %}">
+                <span>login</span>
+                </a>
+                {% endif %}
+                <table align="center" border="1" width="80%">
+                    <thead>
+                        <tr height="10" align="center" bgcolor="lightgreen">
+                            <th>글번호</th>
+                            <th>작성자</th>
+                            <th>제목</th>
+                            <th>작성일</th>
+                        </tr>
+                    </thead>
+                    {%if article_list%} <!--article_list가 있다면-->
+                    <tbody>
+                        {%for article in article_list%}
+                        <tr align="center">
+                            <td width="5%">{{forloop.counter}}</td> <!--장고에서 변수는 중괄호 2개-->
+                            <td width="10%">{{article.write_id}}</td>
+                            <td align="left" width="35%">
+                                <span style="padding-right: 30px;"></span>
+                                <a class="cls1" href="{%url 'noticeboard:view' article.id%}">
+                                    {{article.title}}
+                                </a>
+                            </td>
+                            <td width="10%">{{article.write_date}}</td>
+                        </tr>
+                        {%endfor%}
+                    </tbody>
+                    {%else%}
+                    <tbody>
+                        <tr height="10">
+                            <td colspan="4">
+                                <p align="center">
+                                    <b><span style="font-size: 9pt;">등록된 글이 없습니다.</span></b>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                    {%endif%}  
+                </table>
+                <a class="cls1" href="{%url 'noticeboard:write_article'%}"><span class="cls2">글쓰기</span></a>
+            </body>
+            </html>

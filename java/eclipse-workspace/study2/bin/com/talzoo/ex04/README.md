@@ -1,0 +1,3 @@
+-모든 class가 loading이 되면
+-class Class: 모든 class에는 class Class 객체가 heap에 생김
+              -해당 class가 어떤 생성자, 필드, 메소드를 가지는지 찾아볼 수 있는 메소드를 가지고 있음

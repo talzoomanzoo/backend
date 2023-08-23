@@ -1,0 +1,65 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>faq_list</title>
+    <script>
+		function comment_check() {
+			var commentList = /*[[${data_list}]]*/[];
+			var emptyCommentMessage = document.getElementById('empty_comment_message');
+
+			if (commentList.length === 0) {
+				emptyCommentMessage.style.display = 'table-row';
+			} else {
+				emptyCommentMessage.style.display = 'none';
+			}
+		}
+
+	</script>
+</head>
+<body onload="comment_check()">
+<!-- -질문 목록 -->
+<div layout:fragment="content" class="container my-3">
+    <table class="table">
+      <thead>
+        <tr class="text-center table-default" style="color: #FC6552;" width="80px">
+          <th style="font-size: 32px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">ArticleNo</th>
+          <th style="font-size: 32px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">Author</th>
+          <th style="width:35%; font-size: 32px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">Title</th>
+          <th style="font-size: 32px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">Date</th>
+        </tr>
+      </thead>
+     <tbody th:if="${#strings.isEmpty(data_list)}">
+                        <tr height="10">
+                            <td colspan="4">
+                                <p align="center">
+                                    <b><span style="font-size: 9pt;">No FAQs are uploaded.</span></b>
+                                </p>
+                            </td>
+                        </tr>
+                    </tbody>
+                        <tbody th:unless="${#strings.isEmpty(data_list)}">
+                            <tr align="center" th:each="article:${data_list}">
+                                <td width="5%" style="font-size: 28px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word; color:#3b3b3b">[[${articleStat.count}]]</td>
+                                <td width="10%" style="font-size: 28px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word; color:#3b3b3b">[[${article.write_id}]]</td>
+                                <td align="left" width="35%" style="font-size: 28px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word; color:#3b3b3b">
+                                    <span style="padding-right: 80px;"></span>
+                                    <a class="cls1" th:href="@{/grind/question/view?(articleNo=${article.article_no})}" style="color: #FC6552;">
+                                        [[${article.title}]]
+                                    </a>
+                                </td>
+                                <td width="10%" style="font-size: 28px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word; color:#3b3b3b">[[${article.write_date}]]</td>
+                            </tr>
+                        </tbody>
+    </table>
+    <a th:href="@{/grind/question/add}" class="btn" style="background: #3b3b3b; border-color: #3b3b3b; color:#FAFAF9">Ask Question</a>
+  </div>
+  <tr id="empty_comment_message" style="display:none">
+			<td colspan="4" align="center">
+				<b><span style="font-size: 18pt;">No FaQs are uploaded.</span></b>
+			</td>
+		</tr>
+</body>
+</html>

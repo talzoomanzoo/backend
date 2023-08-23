@@ -1,0 +1,114 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="com.talzoo.model.BoardDao"> <!-- alias -->
+	<resultMap id="noticeResult" type="onboardDto"><!-- multirow, jdbc result
+		set과 같다 -->
+		<result property="article_no" column="article_no" /> <!--  왼쪽은 Dto, 오른쪽은
+		db 의 column 명과 정확하게 같아야 한다 -->
+		<result property="title" column="title" />
+		<result property="content" column="content" />
+		<result property="write_date" column="write_date" />
+		<result property="write_id" column="write_id" />
+		<result property="view_count" column="view_count"/>
+		<result property="like_count" column="like_count"/>
+	</resultMap>
+
+	
+	<resultMap id="answerResult" type="answerDto"><!-- multirow, jdbc result
+		set과 같다 -->
+		<result property="answer_no" column="answer_no" /> <!--  왼쪽은 Dto, 오른쪽은 db
+		의 column 명과 정확하게 같아야 한다 -->
+		<result property="article_no" column="article_no"/>
+		<result property="content" column="content" />
+		<result property="write_date" column="write_date" />
+		<result property="write_id" column="write_id" />
+	</resultMap>
+	
+	<update id="updateLike" parameterType="onboardDto">
+		<![CDATA[
+			update noticeboard set like_count=#{like_count} where article_no=#{article_no}
+		]]>
+	</update>
+	
+	<update id="updateDislike" parameterType="onboardDto">
+		<![CDATA[
+			update noticeboard set dislike_count=#{dislike_count} where article_no=#{article_no}
+		]]>
+	</update>
+	
+	<update id="updateView" parameterType="onboardDto">
+		<![CDATA[
+			update noticeboard set view_count=#{view_count} where article_no=#{article_no}
+		]]>
+	</update>
+
+	<insert id="insertAnswer" parameterType="answerDto">
+		<![CDATA[
+			insert into answerboard(article_no, content, write_date, write_id)
+			values(#{article_no}, #{content}, default, #{write_id})
+		]]>
+	</insert>
+	
+	<select id="selectAnswerList" resultMap="answerResult" parameterType="int"> <!-- 결과는 resultMap으로
+		받는다 -->
+		<![CDATA[
+			select * from answerboard  where article_no=#{article_no} order by write_date desc
+		]]> <!-- xml parser가
+		cdata를 만나면 jump, 안에 있는 쿼리문에서 세미콜론 붙이면 안됨 -->
+	</select>
+
+	<update id="updateAnswer" parameterType="answerDto">
+		<![CDATA[
+			update answerboard set content=#{content} where answer_no=#{answer_no}
+		]]>
+	</update>
+
+	<delete id="deleteAnswer" parameterType="int">
+		<![CDATA[
+			delete from answerboard where answer_no=#{answerNo}
+		]]>
+	</delete>
+
+	<select id="selectArticleList" resultMap="noticeResult"> <!-- 결과는 resultMap으로
+		받는다 -->
+		<![CDATA[
+			select * from noticeboard order by write_date desc		
+		]]> <!-- xml parser가
+		cdata를 만나면 jump, 안에 있는 쿼리문에서 세미콜론 붙이면 안됨 -->
+	</select>
+	
+	<select id="selectAllArticles" resultMap="noticeResult"> <!-- 결과는 resultMap으로
+		받는다 -->
+		<![CDATA[
+			select * from noticeboard where article_no=#{article_no} order by write_date desc		
+		]]> <!-- xml parser가
+		cdata를 만나면 jump, 안에 있는 쿼리문에서 세미콜론 붙이면 안됨 -->
+	</select>
+
+	<insert id="insertArticle" parameterType="onboardDto">
+		<![CDATA[
+			insert into noticeboard(title, content, write_date, write_id)
+			values(#{title}, #{content}, default, #{write_id})
+		]]>
+	</insert>
+
+	<select id="selectArticle" resultType="onboardDto" parameterType="int"> <!--
+		parameterType: integer type으로 article 번호를 줘서 가져옴 -->
+		<![CDATA[
+			select * from noticeboard where article_no=#{article_no}
+		]]>
+	</select>
+
+	<update id="updateArticle" parameterType="onboardDto">
+		<![CDATA[
+			update noticeboard set title=#{title}, content=#{content} where article_no=#{article_no}
+		]]>
+	</update>
+
+	<delete id="deleteArticle" parameterType="int">
+		<![CDATA[
+			delete from noticeboard where article_no=#{no}
+		]]>
+	</delete>
+</mapper>
