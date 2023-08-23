@@ -1,0 +1,39 @@
+<!DOCTYPE html>
+<html lang="ko" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>show image</title>
+    <script th:inline="javascript">
+        async function changeImg(frm) {
+            let formData=new FormData(frm);
+
+            const options={
+                method:"post",
+                body:formData
+            }
+
+            try{
+                
+                let img=document.querySelector('#img_tag');
+                let input_tag=document.querySelector('#pic_name');
+                let response=await fetch(/*[[@{/board/change}]]*/ '',options);
+                let result=await response.json();
+                    img.src=result.file;
+                    input_tag.value=result.name;
+                
+            }catch(err) {
+                alert(err);
+            }
+        }
+
+    </script>
+</head>
+<body>
+    <form id="img_form">
+    <img id="img_tag" th:src="@{/image/springboot.png}" width="400" height="500"><br>
+    <input id="pic_name" type="text"><br>
+    <input type="button" value="이미지바꾸기" onclick="changeImg(img_form)">
+    </form>
+</body>
+</html>

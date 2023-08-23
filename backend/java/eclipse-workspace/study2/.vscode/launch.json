@@ -1,0 +1,49 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "ConsumerTest",
+            "request": "launch",
+            "mainClass": "com.talzoo.ex01.ConsumerTest",
+            "projectName": "study2_3017075b"
+        },
+        {
+            "type": "java",
+            "name": "FunctionImpl",
+            "request": "launch",
+            "mainClass": "com.talzoo.ex01.FunctionImpl",
+            "projectName": "study2_3017075b"
+        },
+        {
+            "type": "java",
+            "name": "FunctionTest",
+            "request": "launch",
+            "mainClass": "com.talzoo.ex01.FunctionTest",
+            "projectName": "study2_3017075b"
+        },
+        {
+            "type": "java",
+            "name": "OperationTest",
+            "request": "launch",
+            "mainClass": "com.talzoo.ex01.OperationTest",
+            "projectName": "study2_3017075b"
+        },
+        {
+            "type": "java",
+            "name": "SupplierTest",
+            "request": "launch",
+            "mainClass": "com.talzoo.ex01.SupplierTest",
+            "projectName": "study2_3017075b"
+        }
+    ]
+}

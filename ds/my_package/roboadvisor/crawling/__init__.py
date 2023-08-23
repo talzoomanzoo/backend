@@ -1,0 +1,1 @@
+__all__ = ['parser', 'scrap'] #analysis밑의 모든 것을 import 해라 #list에서 변수를 찾아서 import

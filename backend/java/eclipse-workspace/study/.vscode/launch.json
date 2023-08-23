@@ -1,0 +1,63 @@
+{
+    // Use IntelliSense to learn about possible attributes.
+    // Hover to view descriptions of existing attributes.
+    // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "java",
+            "name": "SoilSearch",
+            "request": "launch",
+            "mainClass": "com.talzoo.ex12.SoilSearch",
+            "projectName": "study_e8c6efb7"
+        },
+        {
+            "type": "java",
+            "name": "CarMain",
+            "request": "launch",
+            "mainClass": "com.talzoo.ex10.CarMain",
+            "projectName": "study_e8c6efb7"
+        },
+        {
+            "type": "java",
+            "name": "Current File",
+            "request": "launch",
+            "mainClass": "${file}"
+        },
+        {
+            "type": "java",
+            "name": "ArraySample",
+            "request": "launch",
+            "mainClass": "com.talzoo.control.ArraySample",
+            "projectName": "study_e8c6efb7"
+        },
+        {
+            "type": "java",
+            "name": "ArrayTest",
+            "request": "launch",
+            "mainClass": "com.talzoo.control.ArrayTest",
+            "projectName": "study_e8c6efb7"
+        },
+        {
+            "type": "java",
+            "name": "ForTest",
+            "request": "launch",
+            "mainClass": "com.talzoo.control.ForTest",
+            "projectName": "study_e8c6efb7"
+        },
+        {
+            "type": "java",
+            "name": "IfTest",
+            "request": "launch",
+            "mainClass": "com.talzoo.control.IfTest",
+            "projectName": "study_e8c6efb7"
+        },
+        {
+            "type": "java",
+            "name": "WhileTest",
+            "request": "launch",
+            "mainClass": "com.talzoo.control.WhileTest",
+            "projectName": "study_e8c6efb7"
+        }
+    ]
+}

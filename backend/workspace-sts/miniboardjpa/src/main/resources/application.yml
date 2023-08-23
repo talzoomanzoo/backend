@@ -1,0 +1,31 @@
+server:
+  port: 8080
+  servlet:
+    session:
+      timeout: 60m
+spring:
+  datasource:
+    dbcp2:
+      driver-class-name: com.mysql.cj.jdbc.Driver
+    password: 1234
+    url: jdbc:mysql://localhost:3306/onboard?useUnicode=true;
+    username: talzoomanzoo
+  jpa:
+    generate-ddl: true
+    hibernate:
+      naming:
+        implicit-strategy: org.hibernate.boot.model.naming.ImplicitNamingStrategyLegacyJpaImpl
+        physical-strategy: org.hibernate.boot.model.naming.PhysicalNamingStrategyStandardImpl
+  security:
+    user:
+      name: user
+      password: 1234
+  thymeleaf:
+    cache: false
+    check-template: true
+    check-template-location: true
+    enabled: true
+    encoding: UTF-8
+    mode: HTML5
+    prefix: classpath:/templates/
+    suffix: .html

@@ -1,0 +1,258 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+
+<head>
+	<meta charset="UTF-8">
+	<title>faq_detail</title>
+	<script th:inline="javascript">
+		function backToList(frm) {
+			frm.action =/*[[@{/grind/question/list}]]*/
+				frm.submit();
+		}
+
+
+		function fn_enable(frm) {
+			document.querySelector('#i_title').disabled = false;
+			document.querySelector('#i_content').disabled = false;
+			document.querySelector('#tr_btn').style.display = 'none';
+			document.querySelector('#tr_btn_modify').style.display = 'inline';
+		}
+
+		function edit_enable(frm, articleNo, answerNo) {
+			document.querySelector('#iii_content').disabled = false;
+			document.querySelector('#edit_btn').style.display = 'none';
+			document.querySelector('#edit_btn_modify').style.display = 'inline';
+		}
+
+		function edit_modify_article(url, articleNo, answerNo) {
+			document.querySelector('#iii_content').disabled = true;
+			let input2 = document.createElement("input");
+			input2.setAttribute("type", "hidden");
+			input2.setAttribute("name", "answerNo");
+			input2.setAttribute("value", answerNo);
+			let input = document.createElement("input");
+			input.setAttribute("type", "hidden");
+			input.setAttribute("name", "iii_content");
+			input.setAttribute("value", document.querySelector('#iii_content'));
+			let input3 = document.createElement("input");
+			input3.setAttribute("type", "hidden");
+			input3.setAttribute("name", "articleNo");
+			input3.setAttribute("value", articleNo);
+			frm.appendChild(input2);
+			frm.appendChild(input);
+			frm.appendChild(input3);
+			document.body.appendChild(frm);
+			frm.submit()
+		}
+
+
+		function fn_disable(frm) {
+			document.querySelector('#i_title').disabled = true;
+			document.querySelector('#i_content').disabled = true;
+			document.querySelector('#tr_btn').style.display = 'inline';
+			document.querySelector('#tr_btn_modify').style.display = 'none';
+		}
+
+
+		function fn_modify_article(frm) {
+			frm.action = /*[[@{/grind/question/edit}]]*/
+				frm.submit()
+		}
+
+		function fn_add_article(frm) {
+			frm.action = /*[[@{/grind/question/addArticle1}]]*/
+				frm.submit()
+		}
+
+		function fn_remove(url, articleNo) {
+			let form = document.createElement("form");
+			form.setAttribute("method", "post");
+			form.setAttribute("action", url);
+			let input = document.createElement("input");
+			input.setAttribute("type", "hidden");
+			input.setAttribute("name", "articleNo");
+			input.setAttribute("value", articleNo);
+			form.appendChild(input);
+			document.body.appendChild(form);
+			form.submit();
+		}
+
+		function edit_remove(url, articleNo, answerNo) {
+			let form = document.createElement("form");
+			form.setAttribute("method", "post");
+			form.setAttribute("action", url);
+			let input = document.createElement("input");
+			input.setAttribute("type", "hidden");
+			input.setAttribute("name", "articleNo");
+			input.setAttribute("value", articleNo);
+			let input2 = document.createElement("input");
+			input2.setAttribute("type", "hidden");
+			input2.setAttribute("name", "answerNo");
+			input2.setAttribute("value", answerNo);
+			form.appendChild(input);
+			form.appendChild(input2);
+			document.body.appendChild(form);
+			form.submit();
+		}
+
+		function comment_check() {
+			var commentList = /*[[${answer_list}]]*/[];
+			var emptyCommentMessage = document.getElementById('empty_comment_message');
+
+			if (commentList.length === 0) {
+				emptyCommentMessage.style.display = 'table-row';
+			} else {
+				emptyCommentMessage.style.display = 'none';
+			}
+		}
+
+
+	</script>
+	<style>
+		#tr_btn_modify {
+			display: none;
+		}
+
+		#edit_btn_modify {
+			display: none;
+		}
+
+		.form-control:focus {
+			border-color: #FC6552;
+			box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);
+		}
+	</style>
+</head>
+
+<body onload="comment_check()">
+	<div layout:fragment="content" class="container my-3">
+		<form name="articleForm" method="post" action="">
+			<div class="mb-3" style="border-color:#FC6552">
+				<label for="subject" class="form-label"
+					style="color: #FC6552; font-size: 28px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">Title</label>
+				<textarea rows="1" name="i_title" id="i_title" disabled>[[${article.title}]]</textarea>
+			</div>
+			<div class="mb-3" style="border-color:#FC6552">
+				<label for="content" class="form-label"
+					style="color: #FC6552; font-size: 28px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">Question</label>
+				<textarea rows="10" name="i_content" id="i_content" disabled>[[${article.content}]]</textarea>
+			</div>
+			<div id="tr_btn">
+				<td colspan="2" align="center">
+					<input type="button" value="Edit" class="btn"
+						style="background: #3b3b3b; border-color: #3b3b3b; color:#FAFAF9"
+						onclick="fn_enable(articleForm)">
+					<input type="button" value="Delete" class="btn"
+						style="background: #3b3b3b; border-color: #3b3b3b; color:#FAFAF9"
+						th:onclick="|fn_remove('@{/grind/question/remove}', '${article.article_no}')|">
+					<input type="button" value="ViewList" class="btn"
+						style="background: #3b3b3b; border-color: #3b3b3b; color:#FAFAF9"
+						onclick="backToList(articleForm)">
+				</td>
+			</div>
+			<div id="tr_btn_modify">
+				<td colspan="2" align="center">
+					<input type="button" value="Submit" class="btn"
+						style="background: #3b3b3b; border-color: #3b3b3b; color:#FAFAF9"
+						onclick="fn_modify_article(articleForm)">
+					<input type="button" value="Cancel" class="btn"
+						style="background: #3b3b3b; border-color: #3b3b3b; color:#FAFAF9"
+						onclick="fn_disable(articleForm)">
+				</td>
+			</div>
+			<div>
+				<input type="hidden" name="articleNo" th:value="${article.article_no}">
+			</div>
+		</form>
+
+		<form name="answerForm" action=" " method="post" class="my-3">
+			<div>
+				<input type="hidden" name="articleNo" th:value="${article.article_no}">
+			</div>
+			<div class="mb-3" style="border-color:#FC6552">
+				<label for="a_content" class="form-label"
+					style="color: #FC6552; font-size: 28px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">Content</label>
+				<textarea name="ii_content" id="ii_content" class="form-control"
+					rows="10">[[${answer.content}]]</textarea>
+			</div>
+			<div>
+				<input type="submit" value="Submit" class="btn"
+					style="background: #3b3b3b; border-color: #3b3b3b; color:#FAFAF9"
+					onclick="fn_add_article(answerForm)">
+			</div>
+		</form>
+		<form name="answerList" method="post">
+			<table class="table">
+				<thead>
+					<tr class="text-center table-default" style="color: #FC6552;" width="80px">
+						<th
+							style="font-size: 28px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">
+							AnswerNo</th>
+						<th
+							style="font-size: 28px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">
+							Author</th>
+						<th
+							style="width:35%; font-size: 28px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">
+							Content</th>
+						<th
+							style="font-size: 28px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">
+							Date</th>
+					</tr>
+				</thead>
+				<tbody>
+					<tr height="10" th:if="${#strings.isEmpty(answer_list)}">
+						<td colspan="4" align="center">
+							<b><span style="font-size: 9pt;">No answers are uploaded.</span></b>
+						</td>
+					</tr>
+					<tr th:unless="${#strings.isEmpty(answer_list)}" th:each="ans : ${answer_list}">
+						<td width="5%"
+							style="font-size: 28px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word; color:#3b3b3b">
+							[[${ansStat.count}]]
+						</td>
+						<td width="10%"
+							style="font-size: 28px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word; color:#3b3b3b">
+							[[${ans.write_id}]]
+						</td>
+						<td align="left" width="35%"
+							style="font-size: 28px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word; color:#3b3b3b">
+							<span style="padding-right: 80px;"></span>
+							<textarea name="iii_content" id="iii_content" class="form-control" rows="2"
+								disabled>[[${ans.content}]]</textarea>
+						</td>
+						<td width="10%"
+							style="font-size: 28px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word; color:#3b3b3b">
+							[[${ans.write_date}]]
+						</td>
+						<td id="edit_btn" colspan="2" align="center">
+							<input type="button" value="Edit" class="btn"
+								style="background: #3b3b3b; border-color: #3b3b3b; color:#FAFAF9"
+								th:onclick="|edit_enable(answerList, '${article.article_no}', '${ans.answer_no}')|">
+							<input type="button" value="Delete" class="btn"
+								style="background: #3b3b3b; border-color: #3b3b3b; color:#FAFAF9"
+								th:onclick="|edit_remove('@{/grind/question/remove1}', '${article.article_no}', '${ans.answer_no}')|">
+						</td>
+						<td id="edit_btn_modify" colspan="2" align="center">
+							<input type="button" value="Submit" class="btn"
+								style="background: #3b3b3b; border-color: #3b3b3b; color:#FAFAF9"
+								th:onclick="|edit_modify_article('@{/grind/question/edit1}', '${article.article_no}', '${ans.answer_no}')|">
+							<a th:href="@{/grind/question/view?(articleNo=${article.article_no})}" class="btn" style="background: #3b3b3b; border-color: #3b3b3b; color:#FAFAF9">Cancel</a>
+						</td>
+						<td>
+							<input type="text" name="articleNo" th:value="${article.article_no}">
+						</td>
+						<td>
+							<input type="text" name="answerNo" th:value="${ans.answer_no}">
+						</td>
+					</tr>
+				</tbody>
+		</form>
+		<tr id="empty_comment_message" style="display:none">
+			<td colspan="4" align="center">
+				<b><span style="font-size: 18pt;">No answers are uploaded.</span></b>
+			</td>
+		</tr>
+</body>
+
+</html>

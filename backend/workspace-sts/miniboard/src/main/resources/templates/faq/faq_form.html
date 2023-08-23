@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>faq_form</title>
+    <style>
+    .form-control:focus{border-color: #FC6552;  box-shadow: inset 0 1px 1px rgba(0, 0, 0, 0.075), 0 0 8px rgba(255, 0, 0, 0.6);} 
+    </style> 
+</head>
+<body>
+<!--질문 등록-->
+<div layout:fragment="content" class="container my-3">
+    <div class="Sync1" style="width: 1440px; height: 1024px; position: relative; background: white">
+    <h5 class = "my-3 border-bottom pb-2" style="color: #FC6552; font-size: 32px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word"> FAQ Question Form </h5>
+    <form th:action="@{/grind/question/addArticle}" th:object="${onboardDto}" method="post" class="my-3">
+        <div class="alert alert-danger" role="alert" th:if="${#fields.hasAnyErrors()}">
+            <div th:each="err : ${#fields.allErrors()}" th:text="${err}" />
+        </div>
+        <div class="mb-3">
+            <label for="i_title" class="form-label" style="color: #FC6552; font-size: 28px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">Title</label>
+            <textarea name="i_title" id="i_title" class="form-control" rows="1"></textarea>
+        </div>
+        <div class="mb-3" style="border-color:#FC6552">
+            <label for="i_content" class="form-label" style="color: #FC6552; font-size: 28px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">Content</label>
+            <textarea name="i_content" id="i_content" class="form-control" rows="10"></textarea>
+        </div>
+        <input type="submit" value="Submit" class="btn" style="background: #3b3b3b; border-color: #3b3b3b; color:#FAFAF9">
+    </form>
+</div>
+</div>
+</body>
+</html>

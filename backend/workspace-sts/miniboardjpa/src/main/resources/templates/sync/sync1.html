@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html  xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>sync1</title>
+</head>
+<body>
+  <div layout:fragment="content" class="container my-3">
+    <div class="Sync1" style="width: 1440px; height: 1024px; position: relative; background: white">
+    <img class="Grinder" style="width: 299px; height: 315px; left: 570px; top: 397px; position: absolute" th:src="@{/image/sync/Grinder.png}" />
+    <a th:href="@{/grind/sync2}">
+      <img class="Button" style="width: 400px; height: 100px; padding-top: 36px; padding-bottom: 40px; left: 520px; top: 779px; position: absolute; background: #FC6552; border-radius: 54px; overflow: hidden; justify-content: center; align-items: center; display: inline-flex"
+      th:src="@{/image/sync/Button1.png}">
+    </a>
+    <a th:href="@{/grind/sync2}">
+      <div class="Scan" style="left: 682px; top: 817px; position:absolute;text-align: center; color: #FAFAF9; font-size: 32px; font-family: Plus Jakarta Sans; font-weight: 500; line-height: 24px; word-wrap: break-word">Scan</div>
+    </a>
+      <div class="MakeSureYourGrinderIsOnAndNearby" style="width: 236px; left: 602px; top: 263px; position: absolute; text-align: center; color: #FC6552; font-size: 28px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">Make sure your Grinder is on and nearby.</div>
+      <div class="GrinderSync" style="left: 623px; top: 181px; position: absolute; color: #FC6552; font-size: 32px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">Grinder Sync</div>
+      <img class="Settings" style="width: 24px; height: 24px; left: 1380px; top: 961px; position: absolute" th:src="@{/image/sync/settings.png}">
+    </div>
+    </div>
+</body>
+</html>

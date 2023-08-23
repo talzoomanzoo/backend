@@ -1,0 +1,67 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>planning</title>
+  <script>
+    document.getElementById('currentDate').value = new Date().toISOString().substring(0, 10);
+  </script>
+</head>
+<body>
+  <div layout:fragment="content" class="container my-3">
+  <div class="Planning" style="width: 1440px; height: 1024px; position: relative; background: white">
+    <!--Text-->
+    <div class="Today" style="left: 120px; top: 128px; position: absolute; color: #FC6552; font-size: 32px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">Today</div>
+    <div class="Upcoming" style="left: 120px; top: 318px; position: absolute; color: #FC6552; font-size: 32px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">Upcoming</div>
+    <div class="TodaySGrind" style="left: 551px; top: 128px; position: absolute; color: #FC6552; font-size: 32px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">Today’s Grind</div>
+    <div class="GrindSummary" style="left: 1093px; top: 128px; position: absolute; color: #FC6552; font-size: 32px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">Grind Summary</div>
+    <div class="TodaySRoast" style="left: 551px; top: 555px; position: absolute; color: #FC6552; font-size: 32px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">Today’s Roast</div>
+    <div class="TaskTitle" style="left: 964px; top: 203px; position: absolute; width: 243px; height: 46px; color: #FC6552; font-size: 28px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">Yesterday</div>
+    <div class="TaskTitle" style="left: 964px; top: 268px; position: absolute; width: 243px; height: 46px; color: #FC6552; font-size: 28px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">This Week</div>
+    <a th:href="@{/grind/grind}">
+    <div class="Grind" style="left: 1166px; top: 416px; position: absolute; z-index:1; color: #FAFAF9; font-size: 16px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">Grind </div>
+    </a>
+    <a th:href="@{/grind/roast}">
+    <div class="Roast" style="left: 1166px; top: 509px; position: absolute; z-index:1; color: #FAFAF9; font-size: 16px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">Roast</div>
+    </a>
+    <a th:href="@{/grind/summary}">
+    <div class="End" style="left: 1168px; top: 607px; position: absolute; z-index:1; color: #FAFAF9; font-size: 16px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">End</div>
+    </a>
+    <!--Add Task-->
+    <img img_id="AddButton" style="left: 228px; top: 392px; position: absolute" th:src="@{/image/planning/add_button.png}">
+    <!--Date-->
+    <form>
+      <input type='date' id='currentDate'  style="left: 120px; top: 201px; position: absolute; opacity: 0.50; color: #3B3B3B; font-size: 28px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">
+    </form>
+    <!--Today's Grind-->
+    <div class="Ellipse33" style="width: 48px; height: 48px; left: 545px; top: 195px; position: absolute; background: #F3F3F2; border-radius: 9999px"></div>
+    <div class="Ellipse33" style="width: 48px; height: 48px; left: 593px; top: 195px; position: absolute; background: #F3F3F2; border-radius: 9999px"></div>
+    <div class="Ellipse33" style="width: 48px; height: 48px; left: 641px; top: 195px; position: absolute; background: #F3F3F2; border-radius: 9999px"></div>
+    <div class="Ellipse33" style="width: 48px; height: 48px; left: 689px; top: 195px; position: absolute; background: #F3F3F2; border-radius: 9999px"></div>
+    <div class="Ellipse33" style="width: 48px; height: 48px; left: 737px; top: 195px; position: absolute; background: #F3F3F2; border-radius: 9999px"></div>
+    <div class="Ellipse33" style="width: 48px; height: 48px; left: 785px; top: 195px; position: absolute; background: #F3F3F2; border-radius: 9999px"></div>
+    <div class="Ellipse33" style="width: 48px; height: 48px; left: 833px; top: 195px; position: absolute; background: #F3F3F2; border-radius: 9999px"></div>
+    <div class="grind_bar" style="width: 358px; height: 40px; left: 545px; top: 270px; position: absolute; background: #F3F3F2; border-radius: 21.50px"></div>
+    <!--Plan Rest-->
+    <!--Plan Rest-->
+    <!--Action Button-->
+    <a th:href="@{/grind/grind}">
+    <img class="GrindButton" style="width: 275px; height: 69px; left: 1046px; top: 391px; position: absolute; background: #FC6552; border-radius: 54px" th:src="@{/image/planning/grind_button.png}">
+    </a>
+    <a th:href="@{/grind/roast}">
+    <img class="RoastButton" style="width: 275px; height: 69px; left: 1046px; top: 484px; position: absolute; background: #593D28; border-radius: 54px" th:src="@{/image/planning/roast_button.png}">
+    </a>
+    <a th:href="@{/grind/summary}">
+    <img class="EndButton" style="width: 275px; height: 69px; left: 1046px; top: 582px; position: absolute; background: #3B3B3B; border-radius: 54px" th:src="@{/image/planning/end_button.png}">
+    </a>
+    <!--Summary Page-->
+    <div class="Line4" style="width: 358px; height: 0px; left: 963px; top: 195px; position: absolute; border: 0.50px #D7D7D7 solid"></div>
+    <div class="Line4" style="width: 358px; height: 0px; left: 963px; top: 259px; position: absolute; border: 0.50px #D7D7D7 solid"></div>
+    <div class="Line4" style="width: 358px; height: 0px; left: 963px; top: 323px; position: absolute; border: 0.50px #D7D7D7 solid"></div>
+    </div>
+  </div>
+</div>
+</body>
+</html>

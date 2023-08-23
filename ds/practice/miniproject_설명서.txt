@@ -1,0 +1,4 @@
+
+1. data 출처
+2. 총 column수, 주요 column과 그것의 data type
+3. visual하게 보여주고 source코드 ㄴㄴ

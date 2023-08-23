@@ -1,0 +1,181 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+	xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+
+<head>
+
+<link rel="shortcut icon" href="#">
+
+	<title>faq_list</title>
+	<style>
+		.pagination>li>a {
+			background-color: white;
+			color: #3b3b3b;
+		}
+
+		.pagination>li>a:focus,
+		.pagination>li>a:hover,
+		.pagination>li>span:focus,
+		.pagination>li>span:hover {
+			color: #3b3b3b;
+			background-color: #eee;
+			border-color: #ddd;
+		}
+
+		.pagination>.active>a {
+			color: white;
+			background-color: #3b3b3b !Important;
+			border: solid 1px #3b3b3b !Important;
+		}
+
+		.pagination>.active>a:hover {
+			background-color: #3b3b3b !Important;
+			border: solid 1px #3b3b3b;
+		}
+	</style>
+	<script th:inline="javascript">
+
+		function countPost(url, articleNo) {
+			let form = document.createElement("form");
+			form.setAttribute("method", "post");
+			form.setAttribute("action", url);
+			let input = document.createElement("input");
+			input.setAttribute("type", "hidden");
+			input.setAttribute("name", "articleNo");
+			input.setAttribute("value", articleNo);
+			form.appendChild(input);
+			document.body.appendChild(form);
+			form.submit();
+		}
+		
+		window.onload= function(){
+		const page_elements = document.getElementsByClassName("page-link");
+		Array.from(page_elements).forEach(function(element) {
+    	element.addEventListener('click', function() {
+        document.getElementById('page').value = this.dataset.page;
+        document.getElementById('searchForm').submit();
+    	});
+	});
+	}
+		window.onload= function(){
+		const btn_search = document.getElementById("btn_search");
+		btn_search.addEventListener('click', function() {
+    	document.getElementById('kw').value = document.getElementById('search_kw').value;
+    	document.getElementById('page').value = 0;  // 검색버튼을 클릭할 경우 0페이지부터 조회한다.
+    	document.getElementById('searchForm').submit();
+	});
+	}
+	</script>
+</head>
+
+<body>
+	<!-- -질문 목록 -->
+	<div layout:fragment="content" class="container my-3">
+            <div class="input-group">
+                <input type="text" id="search_kw" class="form-control" th:value="${kw}">
+                <button class="btn btn-outline-secondary" type="button" id="btn_search">찾기</button>
+            </div>
+		<table class="table">
+			<thead>
+				<tr class="text-center table-default" style="color: #FC6552;" width="80px">
+					<td
+						style="font-size: 32px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">
+						ArticleNo</td>
+					<td
+						style="font-size: 32px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">
+						Author</td>
+					<td
+						style="width:35%; font-size: 32px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">
+						Title</td>
+					<td
+						style="font-size: 32px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">
+						Date</td>
+					<td
+						style="font-size: 32px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">
+						Likes</td>
+					<td
+						style="font-size: 32px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">
+						View Count</td>
+				</tr>
+			</thead>
+			<tbody th:if="${#strings.isEmpty(paging)}">
+				<tr height="10">
+					<td colspan="4">
+						<p align="center">
+							<b><span style="font-size: 9pt;">No FAQs are uploaded.</span></b>
+						</p>
+					</td>
+				</tr>
+			</tbody>
+			<tbody th:unless="${#strings.isEmpty(paging)}">
+				<tr align="center" th:each="article:${paging}" style="vertical-align: middle;">
+					<td width="5%"
+						style="font-size: 24px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word; color:#3b3b3b">
+						[[${articleStat.count}]]</td>
+						
+					<td width="10%"
+						style="font-size: 24px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word; color:#3b3b3b">
+						<span th:if = "${article.writeId != null}" th:text="${article.writeId.username}"></span></td>
+						
+					<td align="left" width="20%"
+						style="font-size: 24px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word; color:#3b3b3b">
+						<span style="padding-right: 80px;">
+						<a class="cls1" href="javascript:void(0);"
+							th:onclick="|countPost('@{/grind/question/count}', '${article.articleNo}')|" ;
+							style="color: #FC6552;">
+							[[${article.title}]]
+						</a>
+						<span class="text-danger small ms-2" th:if="${#lists.size(article.answerList) > 0}" th:text="${#lists.size(article.answerList)}">
+						</span>
+						</span>
+					</td>
+					
+					<td width="5%"
+						style="font-size: 24px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word; color:#3b3b3b">
+						[[${article.writeDate}]]
+					</td>
+					<td>
+						<span class="ms-2" th:text="${article.likeCount}"></span> Likes <br>
+						<span class="ms-2" th:text="${article.dislikeCount}"></span> Dislikes
+					</td>
+					
+					<td>
+						<span class="ms-2"></span>View Count: [[${article.viewCount}]]
+					</td>
+				</tr>
+			</tbody>
+		</table>
+		<!-- 페이징처리 시작 -->
+		<div th:if="${!paging.isEmpty()}">
+			<ul class="pagination justify-content-center" style="color: #3b3b3b">
+				<li class="page-item" th:classappend="${!paging.hasPrevious} ? 'disabled'">
+					<a class="page-link" href="javascript:void(0)" th:data-page="${paging.number-1}">
+						<span>이전</span>
+					</a>
+				</li>
+				<li th:each="page: ${#numbers.sequence(0, paging.totalPages-1)}"
+					th:if="${page >= paging.number-5 and page <= paging.number+5}"
+					th:classappend="${page == paging.number} ? 'active'" class="page-item">
+					<a th:text="${page}" class="page-link" href="javascript:void(0)" th:data-page="${page}"></a>
+				</li>
+				<li class="page-item" th:classappend="${!paging.hasNext} ? 'disabled'">
+					<a class="page-link" href="javascript:void(0)" th:data-page="${paging.number+1}">
+						<span>다음</span>
+					</a>
+				</li>
+			</ul>
+		</div>
+		<!-- 페이징처리 끝 -->
+		<form th:action="@{/grind/question/list}" method="get" id="searchForm">
+        <input type="hidden" id="kw" name="kw" th:value="${kw}">
+        <input type="hidden" id="page" name="page" th:value="${paging.number}">
+    	</form>
+		<a th:href="@{/grind/question/add}" class="btn"
+			style="background: #3b3b3b; border-color: #3b3b3b; color:#FAFAF9; font-size: 18px; font-family: Plus Jakarta Sans;">Ask
+			Question</a>
+	</div>
+	</td>
+	</tr>
+	</div>
+</body>
+</html>

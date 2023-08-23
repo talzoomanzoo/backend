@@ -1,0 +1,28 @@
+<!DOCTYPE html>
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org"
+xmlns:layout="http://www.ultraq.net.nz/thymeleaf/layout" layout:decorate="~{layout}">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>sync2</title>
+  </head>
+  <body>
+    <div layout:fragment="content" class="container my-3">
+    <div class="Sync2" style="width: 1440px; height: 1024px; position: relative; background: white">
+    <img class="Img92261" style="top: 0px; left: 0px; width: 828px; height: 1024px" th:src="@{/image/sync/Ar.png}" />
+    <a th:href="@{/grind/planning}">
+        <img class="Button" style="width: 400px; height: 100px; padding-top: 36px; padding-bottom: 40px; left: 930px; top: 679px; position: absolute; background: #FC6552; border-radius: 54px; overflow: hidden; justify-content: center; align-items: center; display: inline-flex"
+        th:src="@{/image/sync/Button1.png}">
+    </a>
+    <a th:href="@{/grind/planning}">
+      <div class="Start" style="left: 1090px; top: 715px; position:absolute;text-align: center; color: #FAFAF9; font-size: 32px; font-family: Plus Jakarta Sans; font-weight: 500; line-height: 24px; word-wrap: break-word">Start</div>
+    </a>
+    <div class="GrinderSync" style="top: 181px; left: 1035px; position: absolute; color: #FC6552; font-size: 32px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">Grinder Sync</div>
+    <div class="GrinderDetected" style="width: 236px; top: 418px; left: 1012px; position: absolute; text-align: center; color: #FC6552; font-size: 28px; font-family: Plus Jakarta Sans; font-weight: 500; word-wrap: break-word">
+      Grinder<br />detected!<br />
+    </div>
+    <img class="Settings" style="width: 24px; height: 24px; left: 1380px; top: 961px; position: absolute" th:src="@{/image/sync/settings.png}">
+    </div>
+</div>
+  </body>
+</html>
